@@ -14,6 +14,7 @@ namespace PokeCRUD
         {
             PokeData pokemonData = await PokeAPIService.GetRandomPokemon();
             label2.Text = pokemonData.Name;
+            testeSQL.inicia();
         }
     }
 }
