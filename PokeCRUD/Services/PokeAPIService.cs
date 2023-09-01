@@ -1,22 +1,23 @@
-﻿namespace PokeCRUD.Services;
+﻿using Newtonsoft.Json;
+using PokeCRUD.Models;
 
-internal class PokeData
-{
-    public string name { get; set; }
-}
+namespace PokeCRUD.Services;
 
 internal class PokeAPIService
 {
-    public static async Task<PokeData> PokemonAPIConection()
+    public static async Task<PokeData> GetRandomPokemon()
     {
         using (HttpClient client = new())
         {
-            try{
-                HttpResponseMessage response = await client.GetAsync("https://pokeapi.co/api/v2/pokemon/1");
+            try
+            {
+                Random random = new();
+                string key = $"https://pokeapi.co/api/v2/pokemon/{random.Next(0, 1011)}";
+                HttpResponseMessage response = await client.GetAsync(key);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    PokeData pokemon = Newtonsoft.Json.JsonConvert.DeserializeObject<PokeData>(responseBody);
+                    PokeData pokemon = JsonConvert.DeserializeObject<PokeData>(responseBody);
                     return pokemon;
                 }
                 else
@@ -24,13 +25,11 @@ internal class PokeAPIService
                     Console.WriteLine("Erro ao fazer a requisição à API. Código de status: " + response.StatusCode);
                     return null;
                 }
-
-                }
+            }
             catch (Exception ex) {
                 Console.WriteLine("Erro: " + ex.Message);
                 return null;
             }
-            
         }
     }
 }

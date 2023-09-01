@@ -1,4 +1,5 @@
 using PokeCRUD.Services;
+using PokeCRUD.Models;
 
 namespace PokeCRUD
 {
@@ -11,8 +12,8 @@ namespace PokeCRUD
 
         private async void Gerar_Click(object sender, EventArgs e)
         {
-            PokeData pokemonData = await PokeAPIService.PokemonAPIConection();
-            label2.Text = pokemonData.name;
+            PokeData pokemonData = await PokeAPIService.GetRandomPokemon();
+            label2.Text = pokemonData.Name;
         }
     }
 }
