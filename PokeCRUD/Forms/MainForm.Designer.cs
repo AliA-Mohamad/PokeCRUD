@@ -31,6 +31,7 @@
             label1 = new Label();
             label2 = new Label();
             Gerar = new Button();
+            adicionar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -55,7 +56,7 @@
             // 
             // Gerar
             // 
-            Gerar.Location = new Point(92, 109);
+            Gerar.Location = new Point(27, 109);
             Gerar.Name = "Gerar";
             Gerar.Size = new Size(75, 23);
             Gerar.TabIndex = 2;
@@ -63,11 +64,22 @@
             Gerar.UseVisualStyleBackColor = true;
             Gerar.Click += Gerar_Click;
             // 
+            // adicionar
+            // 
+            adicionar.Location = new Point(157, 109);
+            adicionar.Name = "adicionar";
+            adicionar.Size = new Size(75, 23);
+            adicionar.TabIndex = 3;
+            adicionar.Text = "Adicionar";
+            adicionar.UseVisualStyleBackColor = true;
+            adicionar.Click += adicionar_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(268, 166);
+            Controls.Add(adicionar);
             Controls.Add(Gerar);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -82,5 +94,6 @@
         private Label label1;
         private Label label2;
         private Button Gerar;
+        private Button adicionar;
     }
 }
