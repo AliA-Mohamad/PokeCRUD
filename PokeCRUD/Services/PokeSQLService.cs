@@ -12,6 +12,18 @@ internal class PokeSQLService
     public PokeSQLService(string connectionString)
     {
         _connectionString = connectionString;
+
+        try
+        {
+            using(NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+            }
+        }
+        catch
+        {
+            throw new ApplicationException("Não foi possível estabelecer uma conexão com o banco de dados.");
+        }
     }
 
     public void AdicionarPokemon(PokeData novoPokemon)

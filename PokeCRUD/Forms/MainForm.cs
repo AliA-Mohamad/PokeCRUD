@@ -1,31 +1,33 @@
 using PokeCRUD.Services;
 using PokeCRUD.Models;
+using PokeCRUD.Forms;
+using Newtonsoft.Json.Linq;
 
-namespace PokeCRUD
+namespace PokeCRUD;
+
+public partial class MainForm : Form
 {
-    public partial class MainForm : Form
+    private PokeSQLService? pokeService;
+
+    public MainForm()
     {
-        string connectionString = "Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;";
-        PokeData pokeData;
+        InitializeComponent();
 
-        public MainForm()
+        try
         {
-            InitializeComponent();
+            PokeSQLService pokeService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
+            this.pokeService = pokeService;
         }
-
-        private async void Gerar_Click(object sender, EventArgs e)
+        catch (Exception e)
         {
-            pokeData = await PokeAPIService.GetRandomPokemon();
-            label2.Text = pokeData.Name;
-
-            PokeSQLService pokeService = new(connectionString);
-            pokeService.AdicionarPokemon(pokeData);
+            ErroForm form = new(e.Message);
+            form.ShowDialog();
         }
+    }
 
-        private void adicionar_Click(object sender, EventArgs e)
-        {
-            PokeSQLService pokeService = new(connectionString);
-            pokeService.AdicionarPokemon(pokeData);
-        }
+    private void btnRegistrar_Click(object sender, EventArgs e)
+    {
+        RegistroForm form = new();
+        form.ShowDialog();
     }
 }
