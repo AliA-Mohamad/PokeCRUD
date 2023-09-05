@@ -1,22 +1,19 @@
 using PokeCRUD.Services;
-using PokeCRUD.Models;
 using PokeCRUD.Forms;
-using Newtonsoft.Json.Linq;
 
 namespace PokeCRUD;
 
 public partial class MainForm : Form
 {
-    private PokeSQLService? pokeService;
+    private PokeSQLService? pokeSQLService;
 
     public MainForm()
     {
         InitializeComponent();
-
         try
         {
-            PokeSQLService pokeService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
-            this.pokeService = pokeService;
+            PokeSQLService pokeSQLService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
+            this.pokeSQLService = pokeSQLService;
         }
         catch (Exception e)
         {
@@ -27,7 +24,7 @@ public partial class MainForm : Form
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        RegistroForm form = new();
+        RegistroForm form = new(pokeSQLService!);
         form.ShowDialog();
     }
 }

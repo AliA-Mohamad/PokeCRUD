@@ -1,21 +1,18 @@
-﻿using System.Configuration;
-using System.Data.SqlClient;
-using Npgsql;
-using PokeCRUD.Models;
+﻿using Npgsql;
 
 namespace PokeCRUD.Services;
 
-internal class PokeSQLService
+public class PokeSQLService
 {
-    private string _connectionString;
+    public string connectionString { get; }
 
     public PokeSQLService(string connectionString)
     {
-        _connectionString = connectionString;
+        this.connectionString = connectionString;
 
         try
         {
-            using(NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
+            using(NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
             }
@@ -23,22 +20,6 @@ internal class PokeSQLService
         catch
         {
             throw new ApplicationException("Não foi possível estabelecer uma conexão com o banco de dados.");
-        }
-    }
-
-    public void AdicionarPokemon(PokeData novoPokemon)
-    {
-        using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))
-        {
-            connection.Open();
-
-            string insertQuery = "INSERT INTO pokedex (Nome) VALUES (@Nome)";
-
-            using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
-            {
-                command.Parameters.AddWithValue("Nome", novoPokemon.Name);
-                int rowsAffected = command.ExecuteNonQuery();
-            }
         }
     }
 }
