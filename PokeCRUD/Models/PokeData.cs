@@ -1,7 +1,13 @@
 ﻿namespace PokeCRUD.Models;
 
-internal class PokeData
+public class PokeData
 {
-    // é uma classe
     public string Name { get; set; }
+    public Sprites sprites { get; set; }
+
+}
+
+public class Sprites
+{
+    public string front_default { get; set; }
 }
