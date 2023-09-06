@@ -22,7 +22,6 @@ internal class PokeAPIService
                 }
                 else
                 {
-                    Console.WriteLine("Erro ao fazer a requisição à API. Código de status: " + response.StatusCode);
                     return null;
                 }
             }

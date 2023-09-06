@@ -1,11 +1,12 @@
 using PokeCRUD.Services;
 using PokeCRUD.Forms;
+using PokeCRUD.Models;
 
 namespace PokeCRUD;
 
 public partial class MainForm : Form
 {
-    private PokeSQLService? pokeSQLService;
+    private PokeSQLService _pokeSQLService;
 
     public MainForm()
     {
@@ -13,7 +14,7 @@ public partial class MainForm : Form
         try
         {
             PokeSQLService pokeSQLService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
-            this.pokeSQLService = pokeSQLService;
+            _pokeSQLService = pokeSQLService;
         }
         catch (Exception e)
         {
@@ -24,7 +25,23 @@ public partial class MainForm : Form
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        RegistroForm form = new(pokeSQLService!);
+        RegistroForm form = new(_pokeSQLService!);
         form.ShowDialog();
+    }
+
+    private void btnLogar_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            UsersModel userModel = new(_pokeSQLService!);
+            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text);
+            ErroForm form = new($"id da cessão é: {id}");
+            form.ShowDialog();
+        }
+        catch(Exception ex)
+        {
+            ErroForm form = new(ex.Message);
+            form.ShowDialog();
+        }
     }
 }

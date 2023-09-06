@@ -30,8 +30,8 @@
         {
             btnRegistrar = new Button();
             btnLogar = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            emailText = new TextBox();
+            senhaText = new TextBox();
             label1 = new Label();
             label2 = new Label();
             SuspendLayout();
@@ -54,23 +54,24 @@
             btnLogar.TabIndex = 1;
             btnLogar.Text = "Logar";
             btnLogar.UseVisualStyleBackColor = true;
+            btnLogar.Click += btnLogar_Click;
             // 
-            // textBox1
+            // emailText
             // 
-            textBox1.Location = new Point(12, 33);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Exemplo@exemplo.com";
-            textBox1.Size = new Size(179, 23);
-            textBox1.TabIndex = 2;
+            emailText.Location = new Point(12, 33);
+            emailText.Name = "emailText";
+            emailText.PlaceholderText = "Exemplo@exemplo.com";
+            emailText.Size = new Size(179, 23);
+            emailText.TabIndex = 2;
             // 
-            // textBox2
+            // senhaText
             // 
-            textBox2.Location = new Point(12, 100);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "*****";
-            textBox2.Size = new Size(179, 23);
-            textBox2.TabIndex = 3;
-            textBox2.UseSystemPasswordChar = true;
+            senhaText.Location = new Point(12, 100);
+            senhaText.Name = "senhaText";
+            senhaText.PlaceholderText = "*****";
+            senhaText.Size = new Size(179, 23);
+            senhaText.TabIndex = 3;
+            senhaText.UseSystemPasswordChar = true;
             // 
             // label1
             // 
@@ -99,8 +100,8 @@
             ClientSize = new Size(203, 191);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(senhaText);
+            Controls.Add(emailText);
             Controls.Add(btnLogar);
             Controls.Add(btnRegistrar);
             Name = "MainForm";
@@ -113,8 +114,8 @@
 
         private Button btnRegistrar;
         private Button btnLogar;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox emailText;
+        private TextBox senhaText;
         private Label label1;
         private Label label2;
     }
