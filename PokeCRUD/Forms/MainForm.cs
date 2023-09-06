@@ -34,7 +34,7 @@ public partial class MainForm : Form
         try
         {
             UsersModel userModel = new(_pokeSQLService!);
-            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text); 
+            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text);
         }
         catch(Exception ex)
         {

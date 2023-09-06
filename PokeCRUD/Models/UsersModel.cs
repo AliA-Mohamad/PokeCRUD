@@ -68,7 +68,6 @@ internal class UsersModel
         {
             throw new ApplicationException("Credenciais invalidas.");
         }
-
         throw new ApplicationException("Credenciais invalidas.");
     }
 }
