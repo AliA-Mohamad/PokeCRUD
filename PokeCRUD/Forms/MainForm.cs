@@ -34,9 +34,7 @@ public partial class MainForm : Form
         try
         {
             UsersModel userModel = new(_pokeSQLService!);
-            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text);
-            ErroForm form = new($"id da cessão é: {id}");
-            form.ShowDialog();
+            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text); 
         }
         catch(Exception ex)
         {
