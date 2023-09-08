@@ -1,9 +1,10 @@
 ﻿using Npgsql;
 using PokeCRUD.Services;
+using System.Data;
 
 namespace PokeCRUD.Models;
 
-internal class UsersModel
+public class UsersModel
 {
     private PokeSQLService pokeSQLService;
     private string? idUsuario;
@@ -46,7 +47,7 @@ internal class UsersModel
             {
                 connection.Open();
 
-                string userQuery = "SELECT * FROM Users WHERE Email = @Email AND Senha = @Senha";
+                string userQuery = "SELECT id FROM Users WHERE Email = @Email AND Senha = @Senha";
 
                 using (NpgsqlCommand command = new(userQuery, connection))
                 {
@@ -69,5 +70,40 @@ internal class UsersModel
             throw new ApplicationException("Credenciais invalidas.");
         }
         throw new ApplicationException("Credenciais invalidas.");
+    }
+
+    public string GetNameById(int id)
+    {
+        try
+        {
+            using (NpgsqlConnection connection = new(pokeSQLService.connectionString))
+            {
+                connection.Open();
+
+                string userQuery = "SELECT Nome FROM Users WHERE Id = @Id";
+
+                using (NpgsqlCommand command = new(userQuery, connection))
+                {
+                    command.Parameters.AddWithValue("Id", id);
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string nome = reader.GetString(0);
+                            return nome;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Erro ao acessar banco");
+                        }
+                    }
+                }
+            }
+        }
+        catch
+        {
+            throw new ApplicationException("Erro ao acessar banco");
+        }
     }
 }

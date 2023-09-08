@@ -7,10 +7,15 @@ namespace PokeCRUD.Forms;
 
 public partial class MenuForm : Form
 {
-    public MenuForm(int id)
+    int id;
+    UsersModel UsersModel;
+
+
+    public MenuForm(int id, UsersModel usersModel)
     {
         InitializeComponent();
-        labelNome.Text = id.ToString();
+        this.UsersModel = usersModel;
+        labelNome.Text = usersModel.GetNameById(id);
     }
 
     private async void btnProcurar_Click(object sender, EventArgs e)

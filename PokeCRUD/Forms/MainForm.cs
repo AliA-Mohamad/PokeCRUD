@@ -35,7 +35,7 @@ public partial class MainForm : Form
         {
             UsersModel userModel = new(_pokeSQLService!);
             int id = userModel.LogarUsuario(emailText.Text, senhaText.Text);
-            MenuForm form = new(id);
+            MenuForm form = new(id, userModel);
             form.Show();
             Hide();
         }
