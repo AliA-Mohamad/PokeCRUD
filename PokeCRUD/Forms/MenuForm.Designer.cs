@@ -58,7 +58,8 @@
             // 
             // pictureBoxPokemon
             // 
-            pictureBoxPokemon.Location = new Point(140, 122);
+            pictureBoxPokemon.BorderStyle = BorderStyle.FixedSingle;
+            pictureBoxPokemon.Location = new Point(147, 93);
             pictureBoxPokemon.Name = "pictureBoxPokemon";
             pictureBoxPokemon.Size = new Size(100, 100);
             pictureBoxPokemon.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -67,17 +68,18 @@
             // 
             // labelNomePokemon
             // 
-            labelNomePokemon.AutoSize = true;
             labelNomePokemon.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNomePokemon.Location = new Point(165, 225);
+            labelNomePokemon.Location = new Point(147, 196);
             labelNomePokemon.Name = "labelNomePokemon";
-            labelNomePokemon.Size = new Size(53, 25);
+            labelNomePokemon.Size = new Size(100, 25);
             labelNomePokemon.TabIndex = 3;
-            labelNomePokemon.Text = "Ditto";
+            labelNomePokemon.Text = "N/A";
+            labelNomePokemon.TextAlign = ContentAlignment.MiddleCenter;
+            labelNomePokemon.Click += labelNomePokemon_Click;
             // 
             // btnProcurar
             // 
-            btnProcurar.Location = new Point(152, 292);
+            btnProcurar.Location = new Point(159, 263);
             btnProcurar.Name = "btnProcurar";
             btnProcurar.Size = new Size(75, 23);
             btnProcurar.TabIndex = 4;
