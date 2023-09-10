@@ -15,17 +15,8 @@ public partial class RegistroForm : Form
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        UsersModel db = new(_pokeSQLService!);
-
-        try
-        {
-            db.RegistrarUsuario(textEmail.Text, textNome.Text, textSenha.Text);
-            Close();
-        }
-        catch (Exception ex)
-        {
-            ErroForm form = new(ex.Message);
-            form.ShowDialog();
-        }
+        UserModelTeste db = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
+        db.RegistrarUsuario(textEmail.Text, textNome.Text, textSenha.Text);
+        this.Close();
     }
 }

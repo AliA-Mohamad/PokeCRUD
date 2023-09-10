@@ -49,19 +49,16 @@ public class UsersModel
 
                 string userQuery = "SELECT id FROM Users WHERE Email = @Email AND Senha = @Senha";
 
-                using (NpgsqlCommand command = new(userQuery, connection))
-                {
-                    command.Parameters.AddWithValue("Email", email);
-                    command.Parameters.AddWithValue("Senha", senha);
+                NpgsqlCommand command = new(userQuery, connection);
+                command.Parameters.AddWithValue("Email", email);
+                command.Parameters.AddWithValue("Senha", senha);
 
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32(0);
-                            return id;
-                        }
-                    }
+                NpgsqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    return id;
                 }
             }
         }
@@ -69,7 +66,7 @@ public class UsersModel
         {
             throw new ApplicationException("Credenciais invalidas.");
         }
-        throw new ApplicationException("Credenciais invalidas.");
+        throw new ApplicationException("Falha ao acessar o banco.");
     }
 
     public string GetNameById(int id)
@@ -82,22 +79,20 @@ public class UsersModel
 
                 string userQuery = "SELECT Nome FROM Users WHERE Id = @Id";
 
-                using (NpgsqlCommand command = new(userQuery, connection))
-                {
-                    command.Parameters.AddWithValue("Id", id);
+                NpgsqlCommand command = new(userQuery, connection);
 
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string nome = reader.GetString(0);
-                            return nome;
-                        }
-                        else
-                        {
-                            throw new ApplicationException("Erro ao acessar banco");
-                        }
-                    }
+                command.Parameters.AddWithValue("Id", id);
+
+                NpgsqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    string nome = reader.GetString(0);
+                    return nome;
+                }
+                else
+                {
+                    throw new ApplicationException("Erro ao acessar banco");
                 }
             }
         }
