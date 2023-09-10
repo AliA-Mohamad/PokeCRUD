@@ -1,3 +1,6 @@
+using PokeCRUD.Models;
+using PokeCRUD.Services;
+
 namespace PokeCRUD
 {
     internal static class Program
@@ -5,8 +8,11 @@ namespace PokeCRUD
         [STAThread]
         static void Main()
         {
+
+            UserModel userModel = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
+
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(userModel));
         }
     }
 }

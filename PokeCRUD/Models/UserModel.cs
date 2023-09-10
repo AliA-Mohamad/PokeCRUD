@@ -1,39 +1,36 @@
 ﻿using Npgsql;
 using PokeCRUD.Services;
-using System.Data;
 
 namespace PokeCRUD.Models;
 
-public class UsersModel
+public class UserModel
 {
-    private PokeSQLService pokeSQLService;
-    private string? idUsuario;
+    public NpgsqlConnection connection;
 
-    public UsersModel(PokeSQLService pokeSQLService)
+    public UserModel(string key)
     {
-        this.pokeSQLService = pokeSQLService;
+        PokeSQLService.TestarBanco(key);
+        connection = new NpgsqlConnection(key);
     }
 
     public void RegistrarUsuario(string email, string nome, string senha)
     {
         try
         {
-            using (NpgsqlConnection connection = new(pokeSQLService.connectionString))
+            using (connection)
             {
                 connection.Open();
-
                 string insertQuery = "INSERT INTO Users (Email, Nome, Senha) VALUES (@Email, @Nome, @Senha)";
 
-                using (NpgsqlCommand command = new(insertQuery, connection))
-                {
-                    command.Parameters.AddWithValue("Email", email);
-                    command.Parameters.AddWithValue("Nome", nome);
-                    command.Parameters.AddWithValue("Senha", senha);
-                    command.ExecuteNonQuery();
-                }
+                NpgsqlCommand command = new(insertQuery, connection);
+                command.Parameters.AddWithValue("Email", email);
+                command.Parameters.AddWithValue("Nome", nome);
+                command.Parameters.AddWithValue("Senha", senha);
+
+                command.ExecuteNonQuery();
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new ApplicationException(ex.Message);
         }
@@ -41,15 +38,16 @@ public class UsersModel
 
     public int LogarUsuario(string email, string senha)
     {
-        try 
+        try
         {
-            using (NpgsqlConnection connection = new(pokeSQLService.connectionString))
+            using (connection)
             {
                 connection.Open();
 
                 string userQuery = "SELECT id FROM Users WHERE Email = @Email AND Senha = @Senha";
 
                 NpgsqlCommand command = new(userQuery, connection);
+
                 command.Parameters.AddWithValue("Email", email);
                 command.Parameters.AddWithValue("Senha", senha);
 
@@ -66,14 +64,16 @@ public class UsersModel
         {
             throw new ApplicationException("Credenciais invalidas.");
         }
-        throw new ApplicationException("Falha ao acessar o banco.");
+
+        throw new ApplicationException("Erro ao acessar banco");
     }
 
+    //O Erro esta aqui :D
     public string GetNameById(int id)
     {
         try
         {
-            using (NpgsqlConnection connection = new(pokeSQLService.connectionString))
+            using (connection)
             {
                 connection.Open();
 
@@ -85,20 +85,13 @@ public class UsersModel
 
                 NpgsqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
-                {
-                    string nome = reader.GetString(0);
-                    return nome;
-                }
-                else
-                {
-                    throw new ApplicationException("Erro ao acessar banco");
-                }
+                return reader.GetString(0);
             }
         }
         catch
         {
-            throw new ApplicationException("Erro ao acessar banco");
+            throw new ApplicationException("Erro ao acessar banco(aqui)");
         }
     }
+
 }

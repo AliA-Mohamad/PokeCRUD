@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using PokeCRUD.Models;
+﻿using PokeCRUD.Models;
 using PokeCRUD.Services;
 using System.Net;
 
@@ -7,15 +6,16 @@ namespace PokeCRUD.Forms;
 
 public partial class MenuForm : Form
 {
-    int id;
-    UsersModel UsersModel;
+    int _id;
+    UserModel _db;
 
 
-    public MenuForm(int id, UsersModel usersModel)
+    public MenuForm(int id, UserModel db)
     {
         InitializeComponent();
-        this.UsersModel = usersModel;
-        labelNome.Text = usersModel.GetNameById(id);
+        _db = db;
+        _id = id;
+        labelNome.Text = _db.GetNameById(id);
     }
 
     private async void btnProcurar_Click(object sender, EventArgs e)

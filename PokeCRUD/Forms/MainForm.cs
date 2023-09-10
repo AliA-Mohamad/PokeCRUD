@@ -1,4 +1,3 @@
-using PokeCRUD.Services;
 using PokeCRUD.Forms;
 using PokeCRUD.Models;
 
@@ -6,26 +5,17 @@ namespace PokeCRUD;
 
 public partial class MainForm : Form
 {
-    private PokeSQLService _pokeSQLService;
+    private UserModel _userModel;
 
-    public MainForm()
+    public MainForm(UserModel userModel)
     {
         InitializeComponent();
-        try
-        {
-            PokeSQLService pokeSQLService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
-            _pokeSQLService = pokeSQLService;
-        }
-        catch (Exception e)
-        {
-            ErroForm form = new(e.Message);
-            form.ShowDialog();
-        }
+        _userModel = userModel;
     }
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        RegistroForm form = new(_pokeSQLService!);
+        RegistroForm form = new(_userModel);
         form.ShowDialog();
     }
 
@@ -33,9 +23,9 @@ public partial class MainForm : Form
     {
         try
         {
-            UsersModel userModel = new(_pokeSQLService!);
-            int id = userModel.LogarUsuario(emailText.Text, senhaText.Text);
-            MenuForm form = new(id, userModel);
+            int id = _userModel.LogarUsuario(emailText.Text, senhaText.Text);
+            MenuForm form = new(id, _userModel);
+
             form.Show();
             Hide();
         }

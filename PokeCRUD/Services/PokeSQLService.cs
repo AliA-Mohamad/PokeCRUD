@@ -4,15 +4,11 @@ namespace PokeCRUD.Services;
 
 public class PokeSQLService
 {
-    public string connectionString { get; }
-
-    public PokeSQLService(string connectionString)
+    public static void TestarBanco(string connectionString)
     {
-        this.connectionString = connectionString;
-
         try
         {
-            using(NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
             }
