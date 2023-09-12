@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            labelNome = new Label();
             pictureBoxPokemon = new PictureBox();
             labelNomePokemon = new Label();
             btnProcurar = new Button();
+            labelNome = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPokemon).BeginInit();
             SuspendLayout();
             // 
@@ -45,16 +45,6 @@
             label1.Size = new Size(61, 21);
             label1.TabIndex = 0;
             label1.Text = "Nome:";
-            // 
-            // labelNome
-            // 
-            labelNome.AutoSize = true;
-            labelNome.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNome.Location = new Point(79, 9);
-            labelNome.Name = "labelNome";
-            labelNome.Size = new Size(16, 21);
-            labelNome.TabIndex = 1;
-            labelNome.Text = "-";
             // 
             // pictureBoxPokemon
             // 
@@ -75,7 +65,6 @@
             labelNomePokemon.TabIndex = 3;
             labelNomePokemon.Text = "N/A";
             labelNomePokemon.TextAlign = ContentAlignment.MiddleCenter;
-            labelNomePokemon.Click += labelNomePokemon_Click;
             // 
             // btnProcurar
             // 
@@ -87,15 +76,24 @@
             btnProcurar.UseVisualStyleBackColor = true;
             btnProcurar.Click += btnProcurar_Click;
             // 
+            // labelNome
+            // 
+            labelNome.AutoSize = true;
+            labelNome.Location = new Point(79, 14);
+            labelNome.Name = "labelNome";
+            labelNome.Size = new Size(12, 15);
+            labelNome.TabIndex = 5;
+            labelNome.Text = "-";
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(405, 348);
+            Controls.Add(labelNome);
             Controls.Add(btnProcurar);
             Controls.Add(labelNomePokemon);
             Controls.Add(pictureBoxPokemon);
-            Controls.Add(labelNome);
             Controls.Add(label1);
             Name = "MenuForm";
             Text = "MenuForm";
@@ -107,9 +105,9 @@
         #endregion
 
         private Label label1;
-        private Label labelNome;
         private PictureBox pictureBoxPokemon;
         private Label labelNomePokemon;
         private Button btnProcurar;
+        private Label labelNome;
     }
 }

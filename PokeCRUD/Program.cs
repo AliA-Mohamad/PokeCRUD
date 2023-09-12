@@ -9,10 +9,10 @@ namespace PokeCRUD
         static void Main()
         {
 
-            UserModel userModel = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
+            PokeSQLService pokeSQLService = new("Server=motty.db.elephantsql.com;Database=fqsjuokr;User Id=fqsjuokr;Password=2CziZP6HbfASrTYOn_61MUCyTh_B6aqA;");
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm(userModel));
+            Application.Run(new MainForm(pokeSQLService));
         }
     }
 }

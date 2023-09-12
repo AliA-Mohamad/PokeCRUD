@@ -4,18 +4,22 @@ namespace PokeCRUD.Services;
 
 public class PokeSQLService
 {
-    public static void TestarBanco(string connectionString)
+    public string key { get; }
+
+    public PokeSQLService(string key)
     {
+        this.key = key;
+
         try
         {
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            using (NpgsqlConnection connection = new NpgsqlConnection(key))
             {
                 connection.Open();
             }
         }
         catch
         {
-            throw new ApplicationException("Não foi possível estabelecer uma conexão com o banco de dados.");
+            throw new ApplicationException("Erro no banco de dados");
         }
     }
 }

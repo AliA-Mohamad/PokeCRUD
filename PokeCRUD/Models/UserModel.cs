@@ -5,19 +5,18 @@ namespace PokeCRUD.Models;
 
 public class UserModel
 {
-    public NpgsqlConnection connection;
+    public string _key;
 
     public UserModel(string key)
     {
-        PokeSQLService.TestarBanco(key);
-        connection = new NpgsqlConnection(key);
+        _key = key;
     }
 
     public void RegistrarUsuario(string email, string nome, string senha)
     {
         try
         {
-            using (connection)
+            using (NpgsqlConnection connection  = new(_key))
             {
                 connection.Open();
                 string insertQuery = "INSERT INTO Users (Email, Nome, Senha) VALUES (@Email, @Nome, @Senha)";
@@ -40,7 +39,7 @@ public class UserModel
     {
         try
         {
-            using (connection)
+            using (NpgsqlConnection connection = new(_key))
             {
                 connection.Open();
 
@@ -65,32 +64,41 @@ public class UserModel
             throw new ApplicationException("Credenciais invalidas.");
         }
 
-        throw new ApplicationException("Erro ao acessar banco");
+        throw new ApplicationException("Credenciais invalidas.");
     }
 
-    //O Erro esta aqui :D
     public string GetNameById(int id)
     {
         try
         {
-            using (connection)
+            using (NpgsqlConnection connection = new(_key))
             {
                 connection.Open();
 
                 string userQuery = "SELECT Nome FROM Users WHERE Id = @Id";
 
-                NpgsqlCommand command = new(userQuery, connection);
+                using (NpgsqlCommand command = new(userQuery, connection))
+                {
+                    command.Parameters.AddWithValue("Id", 8);
 
-                command.Parameters.AddWithValue("Id", id);
-
-                NpgsqlDataReader reader = command.ExecuteReader();
-
-                return reader.GetString(0);
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string nome = reader.GetString(0);
+                            return nome;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Erro ao acessar banco");
+                        }
+                    }
+                }
             }
         }
         catch
         {
-            throw new ApplicationException("Erro ao acessar banco(aqui)");
+            throw new ApplicationException("Erro ao acessar banco");
         }
     }
 

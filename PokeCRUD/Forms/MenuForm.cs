@@ -7,15 +7,19 @@ namespace PokeCRUD.Forms;
 public partial class MenuForm : Form
 {
     int _id;
-    UserModel _db;
+    PokeSQLService _pokeSQLService;
+    UserModel dbUser;
 
-
-    public MenuForm(int id, UserModel db)
+    public MenuForm(int id, PokeSQLService pokeSQLService)
     {
-        InitializeComponent();
-        _db = db;
+        _pokeSQLService = pokeSQLService;
         _id = id;
-        labelNome.Text = _db.GetNameById(id);
+        dbUser = new(_pokeSQLService.key);
+
+        
+
+        InitializeComponent();
+        labelNome.Text = "asd";
     }
 
     private async void btnProcurar_Click(object sender, EventArgs e)
@@ -40,8 +44,4 @@ public partial class MenuForm : Form
         }
     }
 
-    private void labelNomePokemon_Click(object sender, EventArgs e)
-    {
-
-    }
 }

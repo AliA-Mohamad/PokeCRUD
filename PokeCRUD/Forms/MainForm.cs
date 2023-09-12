@@ -1,21 +1,22 @@
 using PokeCRUD.Forms;
 using PokeCRUD.Models;
+using PokeCRUD.Services;
 
 namespace PokeCRUD;
 
 public partial class MainForm : Form
 {
-    private UserModel _userModel;
+    private PokeSQLService _pokeSQLService;
 
-    public MainForm(UserModel userModel)
+    public MainForm(PokeSQLService pokeSQLService)
     {
         InitializeComponent();
-        _userModel = userModel;
+        _pokeSQLService = pokeSQLService;
     }
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        RegistroForm form = new(_userModel);
+        RegistroForm form = new(_pokeSQLService);
         form.ShowDialog();
     }
 
@@ -23,8 +24,10 @@ public partial class MainForm : Form
     {
         try
         {
-            int id = _userModel.LogarUsuario(emailText.Text, senhaText.Text);
-            MenuForm form = new(id, _userModel);
+            UserModel db = new(_pokeSQLService.key);
+            int id = db.LogarUsuario(emailText.Text, senhaText.Text);
+
+            MenuForm form = new(id, _pokeSQLService);
 
             form.Show();
             Hide();
