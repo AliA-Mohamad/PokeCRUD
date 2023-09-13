@@ -5,18 +5,17 @@ namespace PokeCRUD.Forms;
 
 public partial class RegistroForm : Form
 {
-    private PokeSQLService _pokeSQLService;
+    private UserModel _userDB;
 
-    public RegistroForm(PokeSQLService pokeSQLService)
+    public RegistroForm(UserModel userDB)
     {
-        _pokeSQLService = pokeSQLService;
+        _userDB = userDB;
         InitializeComponent();
     }
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        UserModel db = new(_pokeSQLService.key);
-        db.RegistrarUsuario(textEmail.Text, textNome.Text, textSenha.Text);
+        _userDB.RegistrarUsuario(textEmail.Text, textNome.Text, textSenha.Text);
         this.Close();
     }
 }

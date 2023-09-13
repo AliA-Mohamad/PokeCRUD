@@ -12,14 +12,14 @@ public partial class MenuForm : Form
 
     public MenuForm(int id, PokeSQLService pokeSQLService)
     {
+        InitializeComponent();
+
         _pokeSQLService = pokeSQLService;
         _id = id;
-        dbUser = new(_pokeSQLService.key);
+        dbUser = new(_pokeSQLService);
 
-        
+        labelNome.Text = dbUser.GetNameById(_id);
 
-        InitializeComponent();
-        labelNome.Text = "asd";
     }
 
     private async void btnProcurar_Click(object sender, EventArgs e)

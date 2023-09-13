@@ -5,18 +5,18 @@ namespace PokeCRUD.Models;
 
 public class UserModel
 {
-    public string _key;
+    NpgsqlConnection connection;
 
-    public UserModel(string key)
+    public UserModel(PokeSQLService pokeSQLService)
     {
-        _key = key;
+        connection = new NpgsqlConnection(pokeSQLService.key);
     }
 
     public void RegistrarUsuario(string email, string nome, string senha)
     {
         try
         {
-            using (NpgsqlConnection connection  = new(_key))
+            using (connection)
             {
                 connection.Open();
                 string insertQuery = "INSERT INTO Users (Email, Nome, Senha) VALUES (@Email, @Nome, @Senha)";
@@ -39,7 +39,7 @@ public class UserModel
     {
         try
         {
-            using (NpgsqlConnection connection = new(_key))
+            using (connection)
             {
                 connection.Open();
 
@@ -71,7 +71,7 @@ public class UserModel
     {
         try
         {
-            using (NpgsqlConnection connection = new(_key))
+            using (connection)
             {
                 connection.Open();
 

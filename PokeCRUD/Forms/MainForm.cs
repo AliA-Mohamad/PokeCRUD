@@ -7,16 +7,18 @@ namespace PokeCRUD;
 public partial class MainForm : Form
 {
     private PokeSQLService _pokeSQLService;
+    private UserModel dbUser;
 
     public MainForm(PokeSQLService pokeSQLService)
     {
         InitializeComponent();
         _pokeSQLService = pokeSQLService;
+        dbUser = new UserModel(pokeSQLService);
     }
 
     private void btnRegistrar_Click(object sender, EventArgs e)
     {
-        RegistroForm form = new(_pokeSQLService);
+        RegistroForm form = new(dbUser);
         form.ShowDialog();
     }
 
@@ -24,8 +26,7 @@ public partial class MainForm : Form
     {
         try
         {
-            UserModel db = new(_pokeSQLService.key);
-            int id = db.LogarUsuario(emailText.Text, senhaText.Text);
+            int id = dbUser.LogarUsuario(emailText.Text, senhaText.Text);
 
             MenuForm form = new(id, _pokeSQLService);
 
