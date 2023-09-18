@@ -33,6 +33,7 @@
             labelNomePokemon = new Label();
             btnProcurar = new Button();
             labelNome = new Label();
+            Adicionar = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPokemon).BeginInit();
             SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             // pictureBoxPokemon
             // 
             pictureBoxPokemon.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxPokemon.Location = new Point(147, 93);
+            pictureBoxPokemon.Location = new Point(175, 125);
             pictureBoxPokemon.Name = "pictureBoxPokemon";
             pictureBoxPokemon.Size = new Size(100, 100);
             pictureBoxPokemon.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -59,7 +60,7 @@
             // labelNomePokemon
             // 
             labelNomePokemon.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNomePokemon.Location = new Point(147, 196);
+            labelNomePokemon.Location = new Point(175, 238);
             labelNomePokemon.Name = "labelNomePokemon";
             labelNomePokemon.Size = new Size(100, 25);
             labelNomePokemon.TabIndex = 3;
@@ -68,7 +69,7 @@
             // 
             // btnProcurar
             // 
-            btnProcurar.Location = new Point(159, 263);
+            btnProcurar.Location = new Point(188, 276);
             btnProcurar.Name = "btnProcurar";
             btnProcurar.Size = new Size(75, 23);
             btnProcurar.TabIndex = 4;
@@ -85,11 +86,22 @@
             labelNome.TabIndex = 5;
             labelNome.Text = "-";
             // 
+            // Adicionar
+            // 
+            Adicionar.Location = new Point(288, 136);
+            Adicionar.Name = "Adicionar";
+            Adicionar.Size = new Size(75, 23);
+            Adicionar.TabIndex = 6;
+            Adicionar.Text = "Capturar";
+            Adicionar.UseVisualStyleBackColor = true;
+            Adicionar.Click += Adicionar_Click;
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(405, 348);
+            ClientSize = new Size(434, 361);
+            Controls.Add(Adicionar);
             Controls.Add(labelNome);
             Controls.Add(btnProcurar);
             Controls.Add(labelNomePokemon);
@@ -109,5 +121,6 @@
         private Label labelNomePokemon;
         private Button btnProcurar;
         private Label labelNome;
+        private Button Adicionar;
     }
 }

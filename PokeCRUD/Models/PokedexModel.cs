@@ -11,8 +11,6 @@ internal class PokedexModel
         _connectionString = connectionString;
     }
 
-
-    //Atualizar adição de pokemon!!!!
     public void AdicionarPokemon(PokeData novoPokemon)
     {
         using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString))

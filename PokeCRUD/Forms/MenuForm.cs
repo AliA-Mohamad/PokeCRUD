@@ -7,8 +7,10 @@ namespace PokeCRUD.Forms;
 public partial class MenuForm : Form
 {
     int _id;
+    PokeData poke;
     PokeSQLService _pokeSQLService;
     UserModel dbUser;
+    DexModel dbDex;
 
     public MenuForm(int id, PokeSQLService pokeSQLService)
     {
@@ -16,6 +18,7 @@ public partial class MenuForm : Form
 
         _pokeSQLService = pokeSQLService;
         _id = id;
+        dbDex = new(_id, _pokeSQLService);
         dbUser = new(_pokeSQLService);
 
         labelNome.Text = dbUser.GetNameById(_id);
@@ -24,7 +27,7 @@ public partial class MenuForm : Form
 
     private async void btnProcurar_Click(object sender, EventArgs e)
     {
-        PokeData poke = await PokeAPIService.GetRandomPokemon();
+        poke = await PokeAPIService.GetRandomPokemon();
         labelNomePokemon.Text = poke.Name;
 
         try
@@ -44,4 +47,22 @@ public partial class MenuForm : Form
         }
     }
 
+    private void Adicionar_Click(object sender, EventArgs e)
+    {
+        if(labelNomePokemon.Text == "N/A")
+        {
+            MessageBox.Show("Nenhum pokemon encontrado. Porfavor procure por um antes de registra-lo");
+        }
+        else
+        {
+            try
+            {
+                dbDex.InsertPokemon(poke);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
 }
